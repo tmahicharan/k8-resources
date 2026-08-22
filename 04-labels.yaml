@@ -8,6 +8,6 @@ metadata:
    component: frontend
    version: v1
 spec:
- container:
+ containers:
  - name: frontend
    image: nginx
