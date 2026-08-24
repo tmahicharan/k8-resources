@@ -3,5 +3,5 @@ kind: Secrect
 metadata: 
  name: secrect
 data:
- username: " "
- password: " "
+ username: "YWRtaW4K"
+ password: "YWRtaW4xMjMK"
