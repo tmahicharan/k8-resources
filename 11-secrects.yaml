@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: Secrect
+metadata: 
+ name: secrect
+data:
+ username: " "
+ password: " "

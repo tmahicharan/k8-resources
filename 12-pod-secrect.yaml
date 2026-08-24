@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Pod
+metadata:
+ name: pod-secrect
+spec:
+ containers:
+ - name: nginx
+   image: nginx
+   envFrom:
+   - SecrectRef:
+       name: secrect
