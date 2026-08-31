@@ -3,7 +3,7 @@ kind: PersistentVolumeClaim
 metadata:
   name: ebs-dynamic
 spec:
-  storageClassName: roboshop-ebs 
+  storageClassName: ebs-sc 
   accessModes:
     - ReadWriteOnce
   resources:
