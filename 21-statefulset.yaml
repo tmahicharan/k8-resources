@@ -1,0 +1,76 @@
+# headles service
+apiVersion: v1
+kind: Service
+metadata:
+ name: nginx-headles
+ labels:
+    app: nginx
+    purpose: stateful-demo
+spec:
+  clusterIP: None
+  selector:
+    app: nginx
+    purpose: stateful-demo
+  ports:
+  - port: 80
+    name: web
+
+---
+
+#service
+apiVersion: v1
+kind: Service
+metadata:
+ name: nginx
+ labels:
+    app: nginx
+    purpose: stateful-demo
+spec:
+  selector:
+    app: nginx
+    purpose: stateful-demo
+  ports:
+  - port: 80
+    name: web
+
+---
+# statefulset
+
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: nginx
+spec:
+  replicas: 3
+  selector:
+    # these labels are used to select pods
+    matchLabels:
+      app: nginx
+      purpose: stateful-demo
+  serviceName: "nginx-headles"
+  # pod definition
+  template:
+    metadata:
+      labels:
+        app: nginx
+        purpose: stateful-demo
+    spec:
+      containers:
+      - name: nginx
+        image: nginx
+        ports:
+        - containerPort: 80
+          name: web
+        volumeMounts:
+        - name: stateful-demo
+          mountPath: /usr/share/nginx/html
+  # This is PVC
+  volumeClaimTemplates:
+  - metadata:
+      name: stateful-demo
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      storageClassName: "roboshop-ebs"
+      resources:
+        requests:
+          storage: 1Gi
